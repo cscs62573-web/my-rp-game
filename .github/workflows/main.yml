@@ -1,0 +1,45 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.7.2 # Убедитесь, что тег совпадает с версией вашего Godot
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check export_presets.cfg
+        run: |
+          if [ ! -f export_presets.cfg ]; then
+            echo "Ошибка: файл export_presets.cfg не найден в репозитории!"
+            exit 1
+          fi
+
+      - name: Setup debug keystore
+        run: |
+          mkdir -p /root/.local/share/godot/keystores
+          keytool -keyalg RSA -genkeypair \
+            -alias androiddebugkey \
+            -keypass android \
+            -keystore /root/.local/share/godot/keystores/debug.keystore \
+            -storepass android \
+            -dname "CN=Android Debug,O=Android,C=US" \
+            -validity 9999
+
+      - name: Import project & Export APK
+        run: |
+          mkdir -p build/android
+          godot --headless --import
+          godot --headless --export-debug "Android" build/android/game.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: build/android/game.apk
