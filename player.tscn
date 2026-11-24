@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://dw61rwh817uhg"]
+
+[ext_resource type="Script" uid="uid://dddt1tiov7f1l" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://dj1exxhs5i3nf" path="res://role_tag.gd" id="2_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]
+radius = 0.9
+height = 1.8
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_sh265"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("NameLabel:text")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_xrivr"]
+radius = 0.19
+height = 0.42
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13qdw"]
+albedo_color = Color(0.94509804, 0.7607843, 0.49019608, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_b1lj4"]
+radius = 0.22
+height = 0.68
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njqwk"]
+albedo_color = Color(0.16862746, 0.42352942, 0.6901961, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wi6ju"]
+radius = 0.065
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7f2x3"]
+albedo_color = Color(0.16862746, 0.42352942, 0.8156863, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_13qdw"]
+radius = 0.068
+height = 0.14
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1lj4"]
+albedo_color = Color(0.94509804, 0.7607843, 0.49019608, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_njqwk"]
+radius = 0.085
+height = 0.68
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wi6ju"]
+albedo_color = Color(0.11764706, 0.16078432, 0.23137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xrivr"]
+size = Vector3(0.14, 0.09, 0.24)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_25bs2"]
+albedo_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=1876253864]
+script = ExtResource("1_4flbx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1265740661]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_xrivr")
+
+[node name="CameraPivot" type="SpringArm3D" parent="." unique_id=1789582655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+spring_length = 3.5
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1772667255]
+
+[node name="NameLabel" type="Label3D" parent="." unique_id=1675220761]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9805634, 0)
+billboard = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=942490678]
+replication_config = SubResource("SceneReplicationConfig_sh265")
+
+[node name="Visuals" type="Node3D" parent="." unique_id=1975376378]
+
+[node name="Head" type="MeshInstance3D" parent="Visuals" unique_id=2036138336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56, 0)
+mesh = SubResource("SphereMesh_xrivr")
+surface_material_override/0 = SubResource("StandardMaterial3D_13qdw")
+
+[node name="Torso" type="MeshInstance3D" parent="Visuals" unique_id=1165613303]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02, 0)
+mesh = SubResource("CapsuleMesh_b1lj4")
+surface_material_override/0 = SubResource("StandardMaterial3D_njqwk")
+
+[node name="LeftArm" type="MeshInstance3D" parent="Visuals" unique_id=2077682721]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1.05, 0)
+mesh = SubResource("CapsuleMesh_wi6ju")
+surface_material_override/0 = SubResource("StandardMaterial3D_7f2x3")
+
+[node name="Hand" type="MeshInstance3D" parent="Visuals/LeftArm" unique_id=1260971684]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26, 0)
+mesh = SubResource("SphereMesh_13qdw")
+surface_material_override/0 = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="RightArm" type="MeshInstance3D" parent="Visuals" unique_id=414111610]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 1.05, 0)
+mesh = SubResource("CapsuleMesh_wi6ju")
+surface_material_override/0 = SubResource("StandardMaterial3D_7f2x3")
+
+[node name="Hand" type="MeshInstance3D" parent="Visuals/RightArm" unique_id=247980473]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.26, 0)
+mesh = SubResource("SphereMesh_13qdw")
+surface_material_override/0 = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="LeftLeg" type="MeshInstance3D" parent="Visuals" unique_id=9252092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11, 0.35, 0)
+mesh = SubResource("CapsuleMesh_njqwk")
+surface_material_override/0 = SubResource("StandardMaterial3D_wi6ju")
+
+[node name="Foot" type="MeshInstance3D" parent="Visuals/LeftLeg" unique_id=2118924226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0.04)
+mesh = SubResource("BoxMesh_xrivr")
+surface_material_override/0 = SubResource("StandardMaterial3D_25bs2")
+
+[node name="RightLeg" type="MeshInstance3D" parent="Visuals" unique_id=109796921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.11, 0.35, 0)
+mesh = SubResource("CapsuleMesh_njqwk")
+surface_material_override/0 = SubResource("StandardMaterial3D_wi6ju")
+
+[node name="Foot" type="MeshInstance3D" parent="Visuals/RightLeg" unique_id=1938694302]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32, 0.04)
+mesh = SubResource("BoxMesh_xrivr")
+surface_material_override/0 = SubResource("StandardMaterial3D_25bs2")
+
+[node name="RoleTag" type="Label3D" parent="." unique_id=918619678]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+billboard = 1
+font_size = 42
+script = ExtResource("2_onrkg")

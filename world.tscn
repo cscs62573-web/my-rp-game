@@ -1,0 +1,369 @@
+[gd_scene format=3 uid="uid://crfot8fy5txmh"]
+
+[ext_resource type="Script" uid="uid://cy006uvidc4y" path="res://addons/tube/tube_client.gd" id="1_fj7yv"]
+[ext_resource type="Script" uid="uid://dhdf3aramsy4x" path="res://world.gd" id="1_tlwt5"]
+[ext_resource type="Script" uid="uid://ysxksyeoaqbb" path="res://virtual_joystick.gd" id="2_036b0"]
+[ext_resource type="Script" uid="uid://t4pe7yqc3pnt" path="res://addons/tube/tube_context.gd" id="2_tlwt5"]
+[ext_resource type="Script" uid="uid://b3cn1a1s815rw" path="res://courier_zone.gd" id="4_aqk2v"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tlwt5"]
+sky_top_color = Color(0.11764706, 0.47058824, 0.8392157, 1)
+sky_horizon_color = Color(0.645738, 0.7766856, 0.81394017, 1)
+ground_horizon_color = Color(0.49411765, 0.78431374, 1, 1)
+
+[sub_resource type="Sky" id="Sky_aqk2v"]
+sky_material = SubResource("ProceduralSkyMaterial_tlwt5")
+
+[sub_resource type="Environment" id="Environment_036b0"]
+background_mode = 2
+sky = SubResource("Sky_aqk2v")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqk2v"]
+albedo_color = Color(0.22745098, 0.41960785, 0.20784314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tlwt5"]
+albedo_color = Color(0.11764706, 0.1254902, 0.13333334, 1)
+
+[sub_resource type="Gradient" id="Gradient_036b0"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2hs0m"]
+gradient = SubResource("Gradient_036b0")
+
+[sub_resource type="Resource" id="Resource_xrivr"]
+script = ExtResource("2_tlwt5")
+app_id = "my_rp_game_2026"
+metadata/_custom_type_script = "uid://t4pe7yqc3pnt"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xrivr"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_13qdw"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_b1lj4"]
+noise_type = 2
+frequency = 0.1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_13qdw"]
+noise = SubResource("FastNoiseLite_b1lj4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xrivr"]
+albedo_color = Color(0.9019608, 0.6156863, 0.14117648, 1)
+albedo_texture = SubResource("NoiseTexture2D_13qdw")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_13qdw"]
+albedo_color = Color(0.2901961, 0.18039216, 0.105882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_njqwk"]
+albedo_color = Color(0.49411765, 0.78431374, 0.8901961, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1lj4"]
+albedo_color = Color(0.49411765, 0.78431374, 0.8901961, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wi6ju"]
+albedo_color = Color(0.23137255, 0.24705882, 0.25882354, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_13qdw"]
+height = 0.8
+radius = 0.8
+
+[node name="World" type="Node3D" unique_id=205594314]
+script = ExtResource("1_tlwt5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1971729118]
+environment = SubResource("Environment_036b0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2023620040]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1889176768]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.004075527, 0.21252131, 0.0037212372)
+use_collision = true
+size = Vector3(50, 0.90304565, 40)
+material = SubResource("StandardMaterial3D_aqk2v")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1222005130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59520245, 0)
+use_collision = true
+size = Vector3(6, 0.2, 40)
+material = SubResource("StandardMaterial3D_tlwt5")
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=1594181382]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=595557531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.5, 0)
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=115297435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=1678624866]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, 0)
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=976051256]
+_spawnable_scenes = PackedStringArray("uid://dw61rwh817uhg")
+spawn_path = NodePath("..")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=717582025]
+
+[node name="BtnAction" type="TouchScreenButton" parent="CanvasLayer" unique_id=27198468]
+position = Vector2(1038, 530)
+scale = Vector2(0.9687502, 1.0000001)
+texture_normal = SubResource("GradientTexture2D_2hs0m")
+action = "ui_accept"
+
+[node name="LoginPanel" type="Panel" parent="CanvasLayer" unique_id=447738302]
+offset_left = 389.0
+offset_top = 193.0
+offset_right = 663.0
+offset_bottom = 365.0
+
+[node name="FirstNameInput" type="LineEdit" parent="CanvasLayer/LoginPanel" unique_id=787125908]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 34.0
+offset_right = 125.0
+offset_bottom = 65.0
+placeholder_text = "Имя"
+
+[node name="LastNameInput" type="LineEdit" parent="CanvasLayer/LoginPanel" unique_id=1761838008]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 34.0
+offset_right = 264.0
+offset_bottom = 65.0
+placeholder_text = "фамилия"
+
+[node name="CodeInput" type="LineEdit" parent="CanvasLayer/LoginPanel" unique_id=103836067]
+layout_mode = 0
+offset_top = 106.0
+offset_right = 132.0
+offset_bottom = 137.0
+text = "введите код"
+placeholder_text = "фамилия"
+
+[node name="HostButton" type="Button" parent="CanvasLayer/LoginPanel" unique_id=1830545115]
+visible = false
+layout_mode = 0
+offset_left = 130.0
+offset_top = 67.0
+offset_right = 264.0
+offset_bottom = 98.0
+text = "Создать сервер"
+
+[node name="JoinButton" type="Button" parent="CanvasLayer/LoginPanel" unique_id=848720059]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 138.0
+offset_right = 269.0
+offset_bottom = 170.0
+text = "Войти на сервер"
+
+[node name="StatusLabel" type="Label" parent="CanvasLayer/LoginPanel" unique_id=439950230]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 203.0
+offset_bottom = 27.0
+text = "Введите имя и фамилию"
+
+[node name="SendButton" type="Button" parent="CanvasLayer" unique_id=857697676]
+offset_left = 886.0
+offset_top = 157.0
+offset_right = 917.0
+offset_bottom = 189.0
+text = "ок"
+
+[node name="MoneyLabel" type="Label" parent="CanvasLayer" unique_id=1391527647]
+offset_left = 1018.0
+offset_top = 11.0
+offset_right = 1139.0
+offset_bottom = 34.0
+text = "Баланс: 0$"
+
+[node name="ChatHistory" type="RichTextLabel" parent="CanvasLayer" unique_id=800712472]
+offset_left = 218.0
+offset_top = 2.0
+offset_right = 924.0
+offset_bottom = 152.0
+
+[node name="CourierButton" type="Button" parent="CanvasLayer" unique_id=1259786482]
+offset_left = 1016.0
+offset_top = 46.0
+offset_right = 1146.0
+offset_bottom = 78.0
+text = "Работа: курьер"
+
+[node name="ChatInput" type="LineEdit" parent="CanvasLayer" unique_id=840882117]
+offset_left = 216.0
+offset_top = 158.0
+offset_right = 882.0
+offset_bottom = 189.0
+
+[node name="VirtualJoystick" type="Control" parent="CanvasLayer" unique_id=858086870]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 9.0
+offset_top = 455.0
+offset_right = 189.0
+offset_bottom = 635.0
+script = ExtResource("2_036b0")
+
+[node name="TubeClient" type="Node" parent="." unique_id=1001766071 node_paths=PackedStringArray("multiplayer_root_node")]
+script = ExtResource("1_fj7yv")
+context = SubResource("Resource_xrivr")
+multiplayer_root_node = NodePath("..")
+metadata/_custom_type_script = "uid://cy006uvidc4y"
+
+[node name="DeliveryPoints" type="Node3D" parent="." unique_id=205145797]
+
+[node name="Marker3D" type="Marker3D" parent="DeliveryPoints" unique_id=218321389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2883356, 1.3429172, -0.06434369)
+
+[node name="Marker3D2" type="Marker3D" parent="DeliveryPoints" unique_id=1895761800]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3406298, 1.4124366, -12.995238)
+
+[node name="Marker3D3" type="Marker3D" parent="DeliveryPoints" unique_id=1859783215]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0199292, 1.1976826, -13.7185955)
+
+[node name="JobMarker" type="Area3D" parent="." unique_id=1156961336]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JobMarker" unique_id=472926786]
+shape = SubResource("CylinderShape3D_xrivr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="JobMarker" unique_id=1595255741]
+mesh = SubResource("CylinderMesh_13qdw")
+
+[node name="House1" type="Node3D" parent="." unique_id=597748662]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.766123, 0, 0)
+
+[node name="Walls" type="CSGBox3D" parent="House1" unique_id=1853545221]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+use_collision = true
+size = Vector3(6, 4, 8)
+material = SubResource("StandardMaterial3D_xrivr")
+
+[node name="Door" type="CSGBox3D" parent="House1" unique_id=1002152566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9010534, 1.73384, 0)
+size = Vector3(0.2, 2.2, 1.2)
+material = SubResource("StandardMaterial3D_13qdw")
+
+[node name="Window1" type="CSGBox3D" parent="House1" unique_id=374659318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9089527, 2.471044, -2.547862)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_njqwk")
+
+[node name="Window2" type="CSGBox3D" parent="House1" unique_id=177798057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9331279, 2.4677975, 2.9965286)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="Roof" type="CSGPolygon3D" parent="House1" unique_id=228203712]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0032134056, 3.9769082, 4.204108)
+polygon = PackedVector2Array(-3.4, 0, 0, 2.2, 3.4, 0)
+depth = 8.36
+material = SubResource("StandardMaterial3D_wi6ju")
+
+[node name="CourierOffice" type="Node3D" parent="." unique_id=87897239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.766123, 0, 15.885992)
+
+[node name="Walls" type="CSGBox3D" parent="CourierOffice" unique_id=1890249701]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4322138, 2, -1.1380291)
+use_collision = true
+size = Vector3(9, 4.5, 10)
+material = SubResource("StandardMaterial3D_xrivr")
+
+[node name="Roof" type="CSGBox3D" parent="CourierOffice" unique_id=1777344884]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2751408, 4.391681, -1.2320251)
+size = Vector3(10, 0.8, 11)
+
+[node name="Door" type="CSGBox3D" parent="CourierOffice" unique_id=319336673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.0044785, 1.73384, 0)
+size = Vector3(0.2, 2.2, 1.2)
+material = SubResource("StandardMaterial3D_13qdw")
+
+[node name="Window1" type="CSGBox3D" parent="CourierOffice" unique_id=308085840]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.984982, 2.471044, -2.547862)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_njqwk")
+
+[node name="Window2" type="CSGBox3D" parent="CourierOffice" unique_id=1171604914]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.970635, 2.4677975, 2.138031)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="Label3D" type="Label3D" parent="CourierOffice" unique_id=1637511898]
+transform = Transform3D(-0.0094384495, 9.057761e-05, -0.99995536, 0.0064720637, 0.999979, 2.949078e-05, 0.9999344, -0.006471498, -0.009438835, -3.1112385, 3.4902763, 0)
+pixel_size = 0.015
+text = "ОФИС КУРЬЕРОВ"
+
+[node name="CourierZone" type="Area3D" parent="CourierOffice" unique_id=1871757219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5118303, 0.13237286, 0)
+script = ExtResource("4_aqk2v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CourierOffice/CourierZone" unique_id=707780892]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0387518, 0.92717206, 0.06306076)
+shape = SubResource("CylinderShape3D_13qdw")
+
+[node name="House2" type="Node3D" parent="." unique_id=1996472832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9841413, 0, -13.013302)
+
+[node name="Walls" type="CSGBox3D" parent="House2" unique_id=694990376]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58593655, 2, 0)
+use_collision = true
+size = Vector3(6, 4, 8)
+material = SubResource("StandardMaterial3D_xrivr")
+
+[node name="Door" type="CSGBox3D" parent="House2" unique_id=2096163333]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3220143, 1.73384, 0)
+size = Vector3(0.2, 2.2, 1.2)
+material = SubResource("StandardMaterial3D_13qdw")
+
+[node name="Window1" type="CSGBox3D" parent="House2" unique_id=83470998]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3177896, 2.471044, -2.547862)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_njqwk")
+
+[node name="Window2" type="CSGBox3D" parent="House2" unique_id=2019310341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3153143, 2.4677975, 2.9965286)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="Roof" type="CSGPolygon3D" parent="House2" unique_id=562862846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.52762556, 3.9936333, 4.204108)
+polygon = PackedVector2Array(-3.4, 0, 0, 2.2, 3.4, 0)
+depth = 8.36
+material = SubResource("StandardMaterial3D_wi6ju")
+
+[node name="House3" type="Node3D" parent="." unique_id=1152813581]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.5310316, 0, -13.013302)
+
+[node name="Walls" type="CSGBox3D" parent="House3" unique_id=1875944297]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+use_collision = true
+size = Vector3(6, 4, 8)
+material = SubResource("StandardMaterial3D_xrivr")
+
+[node name="Door" type="CSGBox3D" parent="House3" unique_id=509448363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9010534, 1.73384, 0)
+size = Vector3(0.2, 2.2, 1.2)
+material = SubResource("StandardMaterial3D_13qdw")
+
+[node name="Window1" type="CSGBox3D" parent="House3" unique_id=1027229787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9089527, 2.471044, -2.547862)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_njqwk")
+
+[node name="Window2" type="CSGBox3D" parent="House3" unique_id=18669940]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9331279, 2.4677975, 2.9965286)
+size = Vector3(0.2, 1.2, 1.2)
+material = SubResource("StandardMaterial3D_b1lj4")
+
+[node name="Roof" type="CSGPolygon3D" parent="House3" unique_id=1894719649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.7683716e-07, 3.7567902, 4.204108)
+polygon = PackedVector2Array(-3.4, 0, 0, 2.2, 3.4, 0)
+depth = 8.36
+material = SubResource("StandardMaterial3D_wi6ju")
+
+[connection signal="body_entered" from="CourierOffice/CourierZone" to="." method="_on_courier_zone_body_entered"]
+[connection signal="body_exited" from="CourierOffice/CourierZone" to="." method="_on_courier_zone_body_exited"]
